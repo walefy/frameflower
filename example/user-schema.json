@@ -1,0 +1,12 @@
+{
+  "type": "entry",
+  "actions": [
+    {
+      "endpoint": "/user",
+      "method": "get",
+      "action": "list",
+      "fields": ["name"],
+      "model": "User"
+    }
+  ]
+}

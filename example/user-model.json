@@ -1,0 +1,14 @@
+{
+  "type": "model",
+  "name": "User",
+  "definition": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

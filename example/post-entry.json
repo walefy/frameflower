@@ -1,0 +1,27 @@
+{
+  "type": "entry",
+  "baseUrl": "/post",
+  "actions": [
+    {
+      "endpoint": "/",
+      "method": "get",
+      "action": "list",
+      "model": "post",
+      "params": {
+        "fields": ["title"]
+      }
+    },
+
+    {
+      "endpoint": "/",
+      "method": "post",
+      "action": "create",
+      "model": "post",
+      "params": {
+        "payload": {
+          "body": { "title": "string" }
+        }
+      }
+    }
+  ]
+}

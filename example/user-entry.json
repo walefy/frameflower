@@ -1,0 +1,26 @@
+{
+  "type": "entry",
+  "baseUrl": "/user",
+  "actions": [
+    {
+      "endpoint": "/",
+      "method": "get",
+      "action": "list",
+      "model": "user",
+      "params": {
+        "fields": ["name", "email"]
+      }
+    },
+    {
+      "endpoint": "/",
+      "method": "post",
+      "action": "create",
+      "model": "user",
+      "params": {
+        "payload": {
+          "body": { "name": "string", "email": "string" }
+        }
+      }
+    }
+  ]
+}

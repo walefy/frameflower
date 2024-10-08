@@ -17,14 +17,15 @@ export type HttpMethodValue = typeof HttpMethods[keyof typeof HttpMethods];
 
 export const EntrySchemaActionType = {
   LIST: 'list',
+  CREATE: 'create',
 } as const;
 
 export type EntrySchemaAction = {
   endpoint: string;
   method: typeof HttpMethods[keyof typeof HttpMethods];
   action: typeof EntrySchemaActionType[keyof typeof EntrySchemaActionType];
-  fields: string[];
   model: string;
+  params: any;
 };
 
 export interface EntrySchema {

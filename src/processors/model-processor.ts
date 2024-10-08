@@ -16,13 +16,15 @@ export class ModelProcessor {
     return this._model;
   }
 
-  private createModelInstance(): ModelContract {
-    return new ModelEntity(this._model.name);
+  private async createModelInstance(): Promise<ModelContract> {
+    const modelInstance = new ModelEntity(this._model.name);
+    await modelInstance.initialize();
+    return modelInstance;
   }
 
-  public process(): void {
-    console.log('[LOG] Processing model...');
-    const modelInstance = this.createModelInstance();
+  public async process(): Promise<void> {
+    console.log(`[LOG] Processing ${this._model.name} model...`);
+    const modelInstance = await this.createModelInstance();
     ModelProcessor.modelInstances.push({
       name: this._model.name,
       model: modelInstance,

@@ -1,0 +1,10 @@
+{
+  "type": "model",
+  "name": "post",
+  "definition": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

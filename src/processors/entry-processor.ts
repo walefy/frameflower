@@ -19,7 +19,7 @@ export class EntryProcessor {
     return this._router;
   }
 
-  private async defineRoutes(): Promise<void> {
+  private defineRoutes(): void {
     for (const action of this._entry.actions) {
       const method = action.method.toLowerCase() as HttpMethodValue;
 
@@ -29,16 +29,16 @@ export class EntryProcessor {
         throw new Error('[ERROR] Model not defined: ' + action.model);
       }
 
-      const data = await modelInstance.model[action.action]();
-
-      this._router[method](action.endpoint, (_req, res) => {
+      this._router[method](action.endpoint, async (req, res) => {
+        const data = await modelInstance.model[action.action]({ request: req, ...action.params });
         res.json({ data });
       });
     }
   }
 
   public process(): void {
-    console.log('[LOG] Processing entry...');
+    const name = this._entry.baseUrl.split('/')[1] || 'unknown';
+    console.log(`[LOG] Processing ${name} entry...`);
     this.defineRoutes();
     global.app.use(this._entry.baseUrl, this._router);
   }

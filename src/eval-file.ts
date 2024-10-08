@@ -18,8 +18,8 @@ export class EvalFile {
     return this._type;
   }
 
-  public eval(): void {
-    this.callProcessor();
+  public eval(): Promise<void> {
+    return this.callProcessor();
   }
 
   private readFile(): any {
@@ -38,7 +38,7 @@ export class EvalFile {
     return this.content.type;
   }
 
-  private callProcessor(): void {
+  private async callProcessor(): Promise<void> {
     switch (this.type) {
       case SchemaType.ENTRY:
         const entryProcessor = new EntryProcessor(this.content);
@@ -46,7 +46,7 @@ export class EvalFile {
         break;
       case SchemaType.MODEL:
         const modelProcessor = new ModelProcessor(this.content);
-        modelProcessor.process();
+        await modelProcessor.process();
         break;
     }
   }

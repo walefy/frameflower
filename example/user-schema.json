@@ -6,7 +6,7 @@
       "method": "get",
       "action": "list",
       "fields": ["name"],
-      "model": "User"
+      "model": "user"
     }
   ]
 }

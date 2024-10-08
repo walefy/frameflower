@@ -1,31 +1,23 @@
-import { SchemaType, type ModelSchema, type ModelSchemaDefinition } from '../types/schema-type';
+import type { ModelContract } from '../types/model-entity-type';
 
-export class ModelEntity implements ModelSchema {
-  private _type = SchemaType.MODEL;
+export class ModelEntity implements ModelContract {
+  private static db: any = {
+    user: [],
+    post: [],
+  }; // This is a dummy database, keys are table names, values are arrays of objects
   private _name: string;
-  private _definition: ModelSchemaDefinition;
 
-  constructor(name: string, definition: ModelSchemaDefinition) {
+  constructor(name: string) {
     this._name = name;
-    this._definition = definition;
+    const table = ModelEntity.db[this._name as typeof ModelEntity.db[keyof typeof ModelEntity.db]];
+    table.push({ name: 'test user', email: 'test@test.com'});
   }
 
-  static fromRawObject(rawObject: any): ModelEntity {
-    return new ModelEntity(
-      rawObject.name,
-      rawObject.definition
-    );
-  }
-
-  public get name(): string {
+  public get modelName(): string {
     return this._name;
   }
 
-  public get definition(): ModelSchemaDefinition {
-    return this._definition;
-  }
-
-  public get type(): typeof SchemaType.MODEL {
-    return this._type;
+  list(): Promise<any> {
+    return ModelEntity.db[this._name as typeof ModelEntity.db[keyof typeof ModelEntity.db]];
   }
 }

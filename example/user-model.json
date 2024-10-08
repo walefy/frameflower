@@ -1,6 +1,6 @@
 {
   "type": "model",
-  "name": "User",
+  "name": "user",
   "definition": {
     "name": {
       "type": "string",

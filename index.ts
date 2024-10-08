@@ -6,8 +6,11 @@ app.use(express.json());
 
 global.app = app;
 
-const _ = new EvalFile('example/user-schema.json');
+const model = new EvalFile('example/user-model.json');
+model.eval();
+const entry = new EvalFile('example/user-schema.json');
+entry.eval();
 
 app.listen(3000, () => {
-  console.log('Server running on port 3000');
+  console.log('[LOG] Server running on port 3000');
 });

@@ -1,16 +1,24 @@
 import fs from 'node:fs';
 import { SchemaType, type SchemaTypeValue } from './types/schema-type';
 import { EntryProcessor } from './processors/entry-processor';
+import { ModelProcessor } from './processors/model-processor';
 
 export class EvalFile {
   private readonly path: string;
   private content: any;
-  public readonly type: SchemaTypeValue;
+  private _type: SchemaTypeValue;
 
   constructor(path: string) {
     this.path = path;
     this.content = this.readFile();
-    this.type = this.extractType();
+    this._type = this.extractType();
+  }
+
+  public get type(): SchemaTypeValue {
+    return this._type;
+  }
+
+  public eval(): void {
     this.callProcessor();
   }
 
@@ -33,11 +41,12 @@ export class EvalFile {
   private callProcessor(): void {
     switch (this.type) {
       case SchemaType.ENTRY:
-        const processor = new EntryProcessor(this.content);
-        processor.process();
+        const entryProcessor = new EntryProcessor(this.content);
+        entryProcessor.process();
         break;
       case SchemaType.MODEL:
-        console.log('Processing model...');
+        const modelProcessor = new ModelProcessor(this.content);
+        modelProcessor.process();
         break;
     }
   }
